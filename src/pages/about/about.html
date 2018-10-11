@@ -4,8 +4,23 @@
       About
     </ion-title>
   </ion-navbar>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 </ion-header>
 
-<ion-content padding>
 
+<ion-content padding>
+<ion-list>
+ 
+  <ion-item *ngFor='let tarea of tareas' [ngStyle]='estilos(tarea)' >
+  <ion-label>{{tarea.descripcion}}</ion-label>
+  <ion-checkbox [checked]='tarea.realizada'></ion-checkbox>
+  <ion-label [ngStyle]="{'background-color': 'red'}">{{tarea.responsable}}</ion-label>
+  </ion-item>
+</ion-list>
+<ion-fab right botton (click)='nuevaTarea()'>
+<button ion-fab color='danger'>
+<ion-icon name='add'></ion-icon>
+</button>
+
+</ion-fab>
 </ion-content>

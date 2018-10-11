@@ -5,13 +5,56 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  
+  <button ion-button (click)='primeraFuncion()'>Galería</button>
+
+  <ion-list>
+    <button ion-item *ngFor='let tarea of tareas'>
+    <ion-icon name="logo-{{tarea.logo}}" item-start [ngStyle]="{'color':tarea.color}"> </ion-icon>
+      {{tarea.titulo}}
+    </button>
+ </ion-list>
+
+  <ion-list>
+
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img src="assets/imgs/thumbnailtotoro.png">
+        </ion-thumbnail>
+        <h2>My Neighbor Totoro</h2>
+        <p>Hayao Miyazaki • 1988</p>
+        <button ion-button clear item-end (click)="presentModal()">Modal</button>
+      </ion-item>
+  
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img src="assets/imgs/thumbnail-puppy-1.jpg">
+        </ion-thumbnail>
+        <h2>Raiders of the Lost Ark</h2>
+        <p>Steven Spielberg • 1981</p>
+        <button ion-button clear item-end>View</button>
+      </ion-item>
+
+  
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img src="assets/imgs/thumbnail-batman.png">
+        </ion-thumbnail>
+        <h2>Batman</h2>
+        <p>Tim Burton • 1988</p>
+        <button ion-button clear item-end>View</button>
+      </ion-item>
+
+  
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img src="assets/imgs/thumbnail-terminator.png">
+        </ion-thumbnail>
+        <h2>The Terminator</h2>
+        <p>James Cameron • 1984</p>
+        <button ion-button clear item-end>View</button>
+      </ion-item>
+  
+    </ion-list>
+
 </ion-content>
