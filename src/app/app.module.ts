@@ -2,7 +2,6 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
@@ -13,6 +12,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {ModalPage} from '../pages/modal/modal';
 import { Camera } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMap } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [
@@ -44,6 +44,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     SplashScreen,
     Camera,
     Geolocation,
+    GoogleMap,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
     
   ]
