@@ -1,17 +1,20 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Contact
+      Realiza foto
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
     <ion-item>
       <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
+        <button (click)='realizaFoto()'>Realizar foto</button>
+        <button (click)='dameLocalizacion()'>Dame localización</button>
+   </ion-item>
   </ion-list>
+  <img *ngIf="base64Image" [src]='base64Image'>
+  <div>Texto de localizacion<p> {{latitude}}</p></div>
+  <div>Texto de localizacion<p>{{longitude}}</p></div>
 </ion-content>

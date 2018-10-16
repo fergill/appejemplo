@@ -35,7 +35,7 @@
       <ion-input [(ngModel)]='tarea.responsable' name='responsable' ></ion-input>
   </ion-item>
 
-<button ion-button ion-button type="submit">Añadir tarea</button>
+<button ion-button ion-button type="submit" [disabled]='!estadoCampo.valid'>Añadir tarea</button>
 </form>
 </ion-list>
 </ion-content>

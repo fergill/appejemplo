@@ -16,7 +16,7 @@ export class AboutPage {
   constructor(public navCtrl: NavController, public modCtrl: ModalController) {
 
   }
-f
+
   ionViewDidLoad() {
     this.tareas = [
       new TareaModelo('Compras', '', false),
@@ -25,7 +25,7 @@ f
       new TareaModelo('Médico', '', true),
       new TareaModelo('Comida', '', true),
       new TareaModelo('Ejercicio', '', true)
-    ]
+    ];
   }
 
 
@@ -37,11 +37,11 @@ f
       if(tarea){
         this.anadeTarea(tarea)
       }
-    })
+    });
   }
 
   anadeTarea(tarea:TareaModelo){
-    this.tareas.push(tarea)
+    this.tareas.push(tarea);
   }
  
   getItems(ev: any) {
@@ -55,7 +55,7 @@ f
     if (val && val.trim() != '') {
       this.tareas = this.tareas.filter((tarea) => {
         return (tarea.descripcion.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+      });
     }
   }
 
@@ -67,6 +67,35 @@ f
 
     return estilos;
 
+  }
+
+  borrar(tarea:TareaModelo){
+    let index = this.tareas.indexOf(tarea);
+      if(index > -1){
+        this.tareas.splice(index, 1);
+      }
+  }
+
+  comprobar(tarea:TareaModelo)
+  {
+    // este if se puede optimizar
+    if(!tarea.realizada)
+    {
+      tarea.realizada = true;
+    }
+    else
+    {
+      tarea.realizada = false;
+    }
+  }
+
+  actualizar(tarea:TareaModelo){
+   const modal = this.modCtrl.create(ModalPage, {tarea});
+   modal.present();
+   //modal.onDidDismiss()
+   let posicion = this.tareas.indexOf(tarea);
+    console.log(posicion);
+    console.log(tarea); 
   }
 
 }

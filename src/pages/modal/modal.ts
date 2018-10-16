@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { TareaModelo } from  '../../servicios/TareaModelo';
 
+
 /**
  * Generated class for the ModalPage page.
  *
@@ -19,6 +20,9 @@ export class ModalPage {
   viewCtrl: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fernanda: ViewController) {
+    if(this.navParams.get('tarea')){
+      this.tarea=this.navParams.get('tarea');
+    }
   }
 
   ionViewDidLoad() {

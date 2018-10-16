@@ -11,6 +11,8 @@ import {GaleriaPage } from '../pages/galeria/galeria';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {ModalPage} from '../pages/modal/modal';
+import { Camera } from '@ionic-native/camera';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import {ModalPage} from '../pages/modal/modal';
     TabsPage,
     GaleriaPage,
     ModalPage
+  
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,10 @@ import {ModalPage} from '../pages/modal/modal';
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
+    
   ]
 })
 export class AppModule {}
