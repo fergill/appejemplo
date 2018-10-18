@@ -11,11 +11,14 @@
     <ion-item>
       <ion-icon name="ionic" item-start></ion-icon>
         <button (click)='realizaFoto()'>Realizar foto</button>
+        <button (click)='mostrarFoto()'>Mostrar foto</button>
         <button (click)='dameLocalizacion()'>Dame localización</button>
    </ion-item>
   </ion-list>
-  <img *ngIf="base64Image" [src]='base64Image'>
-  <div>Texto de localizacion<p> {{latitude}}</p></div>
+  <img *ngIf="base64Image"  [src]="base64Image">
+  <img *ngIf="muestraFoto" [src]="base64Image">
+  <div>Texto de localizacion<p>{{latitude}}</p></div>
   <div>Texto de localizacion<p>{{longitude}}</p></div>
-  <div id="plano" >{{map}}</div>
+  <div id="map_canvas" ></div>
 </ion-content>
+

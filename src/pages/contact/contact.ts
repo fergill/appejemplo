@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
  import {
@@ -7,11 +7,12 @@ import { Geolocation } from '@ionic-native/geolocation';
   GoogleMap,
   GoogleMapsEvent,
   GoogleMapOptions,
-  
- 
+  MarkerOptions,
   Marker,
-  Environment
+  Environment,
+  LatLng
 } from '@ionic-native/google-maps';
+import { getPromise } from '@ionic-native/core';
 
 
 @Component({
@@ -21,12 +22,31 @@ import { Geolocation } from '@ionic-native/geolocation';
 export class ContactPage {
 
   public base64Image:string;
+  muestraFoto:any;
   public latitude:number;
   public longitude: number;
   map: GoogleMap;
-  constructor(public navCtrl: NavController, private camera: Camera, private geolocation: Geolocation ) {
+  constructor(public navCtrl: NavController, private camera: Camera, private geolocation: Geolocation, public plat:Platform, public goMaps:GoogleMaps ) {
 
   }
+
+
+  mostrarFoto(){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      saveToPhotoAlbum:false
+      }
+
+      this.camera.getPicture(options).then((imageData) => {
+        //
+        //
+        this.muestraFoto = 'data:image/jpeg;base64,' + imageData;
+      }, (err) => {
+  
+      });
+    }
 
   realizaFoto(){
     const options: CameraOptions = {
@@ -36,6 +56,8 @@ export class ContactPage {
       mediaType: this.camera.MediaType.PICTURE,
       saveToPhotoAlbum:true
     }
+
+    
 
     this.camera.getPicture(options).then((imageData) => {
       //
@@ -70,37 +92,61 @@ export class ContactPage {
 
   loadMap() {
 
-    // This code is necessary for browser
-    Environment.setEnv({
-      'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyBhbtS94cGY2Ihrtb8v_DQt2ivYgear-h4',
-      'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyBhbtS94cGY2Ihrtb8v_DQt2ivYgear-h4'
-    });
-
-    let mapOptions: GoogleMapOptions = {
-      camera: {
-         target: {
-           lat: 43.0741904,
-           lng: -89.3809802
-         },
-         zoom: 18,
-         tilt: 30
-       }
-    };
-
-    this.map = GoogleMaps.create('map_canvas', mapOptions);
-
-    let marker: Marker = this.map.addMarkerSync({
-      title: 'Ionic',
-      icon: 'blue',
-      animation: 'DROP',
-      position: {
-        lat: 43.0741904,
-        lng: -89.3809802
-      }
-    });
-    marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-      alert('clicked');
-    });
+    this.plat.ready().then(()=> {
+      this.map = this.goMaps.create('map_canvas');
+      this.map.one(GoogleMapsEvent.MAP_READY).then((data:any) => {
+        this.geolocation.getCurrentPosition().then(resp=>{
+         
+          let posicionPropia:LatLng = new LatLng(resp.coords.latitude, resp.coords.longitude);
+          this.map.animateCamera({target:posicionPropia, zoom:15})
+          this.map.addMarker({
+            position:posicionPropia,
+            title:'Mis coordenadas'
+          });
+        });
+      });
+    })
   }
+//     // This code is necessary for browser
+//     Environment.setEnv({
+//       'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyBhbtS94cGY2Ihrtb8v_DQt2ivYgear-h4',
+//       'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyBhbtS94cGY2Ihrtb8v_DQt2ivYgear-h4'
+//     });
+
+
+    
+
+//     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+//       this.getPosition();
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+
+
+//   }
+
+//   getPosition(): void{
+//     this.map.getMyLocation()
+//     .then(response => {
+//       this.map.moveCamera({
+//         target: response.latLng
+//       });
+//       this.map.addMarker({
+        
+//     title: 'Ionic',
+//     icon: 'blue',
+//     animation: 'DROP',
+//     position: 
+//       response.latLng
+    
+//   });
+// })
+//     .catch(error => {
+//       console.log(error);
+//     });
+//   }
 
 }
+
+

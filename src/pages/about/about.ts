@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import {TareaModelo} from '../../servicios/TareaModelo';
 import {ModalPage} from '../modal/modal';
+import { Storage } from '@ionic/storage';
+import { ServiciotareaProvider } from '../../servicios/serviciotarea';
 
 @Component({
   selector: 'page-about',
@@ -13,7 +15,7 @@ export class AboutPage {
   public tareas:TareaModelo[];
   initializeTareas: any;
 
-  constructor(public navCtrl: NavController, public modCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public modCtrl: ModalController, public servicioTarea: ServiciotareaProvider) {
 
   }
 

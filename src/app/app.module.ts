@@ -12,7 +12,25 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {ModalPage} from '../pages/modal/modal';
 import { Camera } from '@ionic-native/camera';
 import { Geolocation } from '@ionic-native/geolocation';
-import { GoogleMap } from '@ionic-native/google-maps';
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyB5K3G_01vUvd95zOWt-wsxvmocAIu4eeE",
+  authDomain: "login-9325c.firebaseapp.com",
+  databaseURL: "https://login-9325c.firebaseio.com",
+  projectId: "login-9325c",
+  storageBucket: "login-9325c.appspot.com",
+  messagingSenderId: "860734161664"
+};
+
+
+
 
 @NgModule({
   declarations: [
@@ -27,7 +45,11 @@ import { GoogleMap } from '@ionic-native/google-maps';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,14 +59,16 @@ import { GoogleMap } from '@ionic-native/google-maps';
     HomePage,
     TabsPage,
     GaleriaPage,
-    ModalPage
+    ModalPage,
+    
     ],
   providers: [
     StatusBar,
     SplashScreen,
     Camera,
     Geolocation,
-    GoogleMap,
+    GoogleMaps,
+    AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
     
   ]
